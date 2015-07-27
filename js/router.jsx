@@ -30,6 +30,7 @@ Router = React.createClass({
 		page( /^\/author\/([a-z0-9-]+)\/?$/, this.author );
 		page( /^\/category\/([a-z0-9-]+)\/?$/, this.category );
 		page( /^\/tag\/([a-z0-9-]+)\/?$/, this.tag );
+		page( /^\/wp-admin\/.*$/, this.admin );		
 		page( /^[a-z0-9-\/]+\/([a-z0-9-]+)\/$/, this.page );
 		page( /^\/([a-z0-9-]+)\/$/, this.page );
 		page( '*', this.notfound );
@@ -65,6 +66,9 @@ Router = React.createClass({
 		this.setState({
 			template: <Page endpoint={ config.api + '/wp/v2/pages?name=' + context.params[0] } />
 		});
+	},
+	admin: function( context, next ){
+		window.location.replace(config.serverRoot + context.canonicalPath );
 	},
 	notfound: function() {
 		this.setState({
